@@ -1,0 +1,89 @@
+<div class="requests-container">
+  <div class="requests-header">
+    <h2>Mes Demandes</h2>
+    <div class="filters">
+      <div class="search-filter">
+        <input
+          type="text"
+          [(ngModel)]="searchId"
+          (input)="onSearchChange()"
+          placeholder="Rechercher par ID"
+          class="search-input"
+        />
+      </div>
+      <div class="status-filter">
+        <select [(ngModel)]="selectedStatus" (change)="onStatusChange()" class="status-select">
+          <option *ngFor="let option of statusOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+      <button class="btn-new" (click)="createNewRequest()" *ngIf="!isAdmin">
+        <i class="fas fa-plus"></i>
+        Nouvelle Demande
+      </button>
+    </div>
+  </div>
+
+  <div class="requests-list">
+    <div class="request-section" *ngFor="let request of filteredRequests">
+      <div class="request-table">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>DATE</th>
+              <th>TYPE</th>
+              <th>DESCRIPTION</th>
+              <th>STATUS</th>
+              <th>RÉPONSE</th>
+              <th>TRAITÉ PAR</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ request.id }}</td>
+              <td>{{ request.date | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <div class="request-type">
+                  <i class="fas" [ngClass]="{
+                    'fa-calendar-alt': request.type === 'Congé annuel',
+                    'fa-graduation-cap': request.type === 'Formation',
+                    'fa-file-alt': request.type === 'Attestation de travail',
+                    'fa-money-bill-wave': request.type === 'Prêt',
+                    'fa-hand-holding-usd': request.type === 'Avance',
+                    'fa-file-contract': request.type === 'Document'
+                  }"></i>
+                  {{ request.type }}
+                </div>
+              </td>
+              <td>{{ request.description }}</td>
+              <td>
+                <span class="status" [ngClass]="{
+                  'en-attente': request.status === 'En attente',
+                  'approuvée': request.status === 'Approuvée',
+                  'rejetée': request.status === 'Rejetée'
+                }">
+                  {{ request.status }}
+                </span>
+              </td>
+              <td>{{ request.response || 'Pas de réponse' }}</td>
+              <td>{{ request.processedBy || 'Non traité' }}</td>
+              <td class="actions">
+                <button class="btn-details" (click)="viewDetails(request.id)">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="no-requests" *ngIf="filteredRequests.length === 0">
+      <i class="fas fa-inbox"></i>
+      <p>Aucune demande {{ selectedStatus === 'all' ? '' : 'avec ce statut' }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+.admin-dashboard {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.requests-list {
+  margin-top: 20px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    app-search-bar {
+      margin-left: auto;
+    }
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #f0ad4e;
+  font-weight: bold;
+}
+
+.status-approved {
+  color: #5cb85c;
+  font-weight: bold;
+}
+
+.status-rejected {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+.btn {
+  margin-right: 5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}

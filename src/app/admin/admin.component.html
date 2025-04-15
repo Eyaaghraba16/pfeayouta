@@ -1,0 +1,48 @@
+<div class="admin-dashboard">
+  <h1>Tableau de bord Admin</h1>
+  
+  <div class="requests-list">
+    <div class="header-section">
+      <h2>Liste des demandes</h2>
+      <app-search-bar (search)="onSearch($event)"></app-search-bar>
+    </div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Employé</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let request of filteredRequests">
+            <td>{{request.id}}</td>
+            <td>{{request.createdAt | date:'dd/MM/yyyy'}}</td>
+            <td>{{request.requestType}}</td>
+            <td>{{request.user?.firstname}} {{request.user?.lastname}}</td>
+            <td>
+              <span [class]="'status-' + request.status.toLowerCase()">
+                {{request.status}}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-primary" (click)="editRequest(request.id)">
+                <i class="fas fa-edit"></i> Modifier
+              </button>
+              <button class="btn btn-success" (click)="approveRequest(request.id)" *ngIf="request.status === 'PENDING'">
+                <i class="fas fa-check"></i> Approuver
+              </button>
+              <button class="btn btn-danger" (click)="rejectRequest(request.id)" *ngIf="request.status === 'PENDING'">
+                <i class="fas fa-times"></i> Rejeter
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
